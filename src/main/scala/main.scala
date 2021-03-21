@@ -6,11 +6,11 @@ import scala.io.StdIn.readLine
 
 object Main extends App {
     val botMain = new BotMain
-    botMain.Run()
+    botMain.run()
 }
 
 class BotMain {
-    def Run(): Unit = {
+    def run(): Unit = {
         val TOKEN = readLine()
         val client: DiscordApi = new DiscordApiBuilder()
             .setToken(TOKEN)

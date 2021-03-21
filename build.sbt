@@ -44,8 +44,6 @@ scalacOptions ++= Seq(
   "-Ycache-macro-class-loader:last-modified", // and macro defini
 )
 
-lazy val AkkaVersion = "2.6.6"
-lazy val AkkaHttpVersion = "10.2.2"
 
 resolvers ++= Seq(
   "jitpack" at "https://jitpack.io",
