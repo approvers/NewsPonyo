@@ -43,10 +43,6 @@ jobs:
           2)
             sbt -v "scripted actions/*"
             ;;
-          3)
-            sbt -v "dependency-management/*"
-            ;;
-          *)
             echo unknown jobtype
             exit 1
         esac
