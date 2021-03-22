@@ -1,3 +1,4 @@
+import com.typesafe.config.ConfigFactory
 import org.javacord.api.{DiscordApi, DiscordApiBuilder}
 
 import java.util.{Timer, TimerTask}
@@ -11,7 +12,7 @@ object Main extends App {
 
 class BotMain {
     def run(): Unit = {
-        val TOKEN = readLine()
+        val TOKEN = ConfigFactory.load().getString("TOKEN")
         val client: DiscordApi = new DiscordApiBuilder()
             .setToken(TOKEN)
             .login
