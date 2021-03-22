@@ -6,8 +6,15 @@ object AddNews extends Command {
         .getName
 
     override def command(event: MessageCreateEvent): Either[String, Unit] = {
-        event.getChannel
-            .sendMessage("AddNews")
-        Left("予期せぬエラー")
+        val args: Array[String] = event.getMessage
+            .getContent
+            .split(" ")
+        if (args
+            .length == 1) {
+            return Left("引数不足")
+        }
+
+        Right(event.getChannel
+            .sendMessage("AddNews"))
     }
 }

@@ -51,6 +51,14 @@ resolvers ++= Seq(
 )
 libraryDependencies ++= Seq(
   "org.javacord" % "javacord" % "3.1.2",
-  "com.google.code.findbugs" % "jsr305" % "3.0.2" % Optional
+  "org.mongodb.scala" %% "mongo-scala-driver" % "4.2.2",
+  "org.slf4j" % "slf4j-api" % "1.7.25",
+  "ch.qos.logback" % "logback-classic" % "1.2.3",
+  "com.google.code.findbugs" % "jsr305" % "3.0.2" % Optional,
+  "org.mongodb.scala" %% "mongo-scala-bson" % "2.8.0",
+  "org.mongodb" % "bson" % "3.12.0",
+  "org.mongodb" % "mongodb-driver-core" % "3.12.0",
+  "org.mongodb" % "mongodb-driver-async" % "3.12.0",
+  "com.typesafe" % "config" % "1.4.1"
 )
 
