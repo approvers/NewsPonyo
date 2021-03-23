@@ -1,9 +1,9 @@
+package newsPonyo
+
 import com.typesafe.config.ConfigFactory
 import org.javacord.api.{DiscordApi, DiscordApiBuilder}
 
 import java.util.{Timer, TimerTask}
-import scala.None.foreach
-import scala.io.StdIn.readLine
 
 object Main extends App {
     val botMain = new BotMain

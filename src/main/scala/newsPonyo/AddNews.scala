@@ -1,9 +1,10 @@
-import DB.{DataBase, Insert}
+package newsPonyo
+
+import newsPonyo.DB.{DataBase, Insert}
 import org.javacord.api.event.message.MessageCreateEvent
 import org.mongodb.scala.MongoDatabase
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.{Await, Future}
+import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
 object AddNews extends Command {
@@ -14,7 +15,8 @@ object AddNews extends Command {
             .getContent
             .split(" ")
 
-        args.length match {
+        args
+            .length match {
             case 1 => return Left("引数不足")
             case 2 | 3 =>
             case _ => return Left("引数過度")
@@ -22,9 +24,13 @@ object AddNews extends Command {
 
         val title = args.apply(1)
 
-        val name: String = args.length match {
+        val name: String = args
+            .length match {
             case 3 => args.apply(2)
-            case _ => event.getMessage.getAuthor.getDisplayName
+            case _ => event
+                .getMessage
+                .getAuthor
+                .getDisplayName
         }
 
         val client = DataBase.connectDB()
@@ -32,7 +38,8 @@ object AddNews extends Command {
 
         val coll = database.getCollection("News")
 
-        Await.result(Insert.addNews(coll, name, title), Duration.Inf)
+        Await.result(Insert.addNews(coll, name, title), Duration
+            .Inf)
 
         Right(event.getChannel
             .sendMessage("Success add new news"))

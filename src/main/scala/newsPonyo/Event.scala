@@ -1,3 +1,5 @@
+package newsPonyo
+
 import org.javacord.api.entity.channel.TextChannel
 
 trait Event {

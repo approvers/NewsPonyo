@@ -1,4 +1,4 @@
-package DB
+package newsPonyo.DB
 
 import org.mongodb.scala.{Document, MongoClient, MongoCollection}
 

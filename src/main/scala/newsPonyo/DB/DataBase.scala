@@ -1,4 +1,4 @@
-package DB
+package newsPonyo.DB
 
 import com.typesafe.config.ConfigFactory
 import org.mongodb.scala._
@@ -14,7 +14,7 @@ import scala.util.{Failure, Success}
 object DataBase {
     def connectDB(): MongoClient = {
         val DB = ConfigFactory.load()
-            .getString("DB")
+            .getString("newsPonyo/DB")
         MongoClient(DB)
     }
 }

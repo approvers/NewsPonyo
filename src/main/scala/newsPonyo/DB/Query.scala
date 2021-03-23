@@ -1,5 +1,6 @@
-package DB
+package newsPonyo.DB
 
+import newsPonyo.SendNews
 import org.javacord.api.entity.channel.TextChannel
 import org.javacord.api.entity.message.embed.EmbedBuilder
 import org.javacord.api.event.message.MessageCreateEvent
@@ -13,7 +14,7 @@ import scala.concurrent.duration.Duration
 import scala.util.{Failure, Success}
 
 object Query {
-    def quety(client: MongoClient, coll: MongoCollection[Document], count: Int, channel: TextChannel): Unit = {
+    def newsQuety(client: MongoClient, coll: MongoCollection[Document], count: Int, channel: TextChannel): Unit = {
         println(math
             .random() * 1000
             .toInt)
@@ -27,24 +28,12 @@ object Query {
         Await.ready(query, Duration
             .Inf)
             .onComplete {
+
                 case Success(result) =>
                     coll.drop()
                     client.close()
-                    val message = new EmbedBuilder().setAuthor("時刊 ぽにょニュース")
-                        .setTitle(result
-                            .get("title")
-                            .get
-                            .asString()
-                            .getValue)
-                        .setDescription(result
-                            .get("name")
-                            .get
-                            .asString()
-                            .getValue)
-                        .setColor(Color
-                            .GREEN)
-                    channel
-                        .sendMessage(message)
+                    SendNews.send(result, channel)
+
                 case Failure(e) =>
                     println(s"error: ${
                         e
