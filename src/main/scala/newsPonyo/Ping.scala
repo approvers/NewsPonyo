@@ -1,3 +1,5 @@
+package newsPonyo
+
 import org.javacord.api.event.message.MessageCreateEvent
 
 object Ping extends Command {
