@@ -6,7 +6,7 @@ object CommandSelector {
         command.apply(0) match {
             case "ping" => Ping.command(event)
             case AddNews.commandName => AddNews.command(event)
-            case SendNews.commandName => SendNews.command(event)
+            case SendNews.commandName => SendNews.command(event.getChannel)
             case _ => Right({})
         }
     }

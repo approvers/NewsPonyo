@@ -1,5 +1,6 @@
 package DB
 
+import org.javacord.api.entity.channel.TextChannel
 import org.javacord.api.entity.message.embed.EmbedBuilder
 import org.javacord.api.event.message.MessageCreateEvent
 import org.mongodb.scala.model.Filters.equal
@@ -12,7 +13,7 @@ import scala.concurrent.duration.Duration
 import scala.util.{Failure, Success}
 
 object Query {
-    def quety(client: MongoClient, coll: MongoCollection[Document], count: Int, event: MessageCreateEvent): Unit = {
+    def quety(client: MongoClient, coll: MongoCollection[Document], count: Int, channel: TextChannel): Unit = {
         println(math
             .random() * 1000
             .toInt)
@@ -42,7 +43,7 @@ object Query {
                             .getValue)
                         .setColor(Color
                             .GREEN)
-                    event.getChannel
+                    channel
                         .sendMessage(message)
                 case Failure(e) =>
                     println(s"error: ${

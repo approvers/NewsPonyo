@@ -1,11 +1,12 @@
 import DB.{DataBase, Query}
+import org.javacord.api.entity.channel.TextChannel
 import org.javacord.api.event.message.MessageCreateEvent
 import org.mongodb.scala.MongoDatabase
 
-object SendNews extends Command {
+object SendNews extends Event {
     override val commandName: String = "send"
 
-    override def command(event: MessageCreateEvent): Either[String, Unit] = {
+    override def command(channel: TextChannel): Either[String, Unit] = {
         val client = DataBase.connectDB()
         val database: MongoDatabase = client.getDatabase("News")
 
@@ -14,7 +15,7 @@ object SendNews extends Command {
         coll.estimatedDocumentCount()
             .subscribe(x => {
                 Query.quety(client, coll, x
-                    .toInt, event)
+                    .toInt, channel)
                 println(x.toInt)
             }
             )

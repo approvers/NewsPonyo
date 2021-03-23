@@ -12,7 +12,8 @@ object Main extends App {
 
 class BotMain {
     def run(): Unit = {
-        val TOKEN = ConfigFactory.load().getString("TOKEN")
+        val TOKEN = ConfigFactory.load()
+            .getString("TOKEN")
         val client: DiscordApi = new DiscordApiBuilder()
             .setToken(TOKEN)
             .login
@@ -32,10 +33,10 @@ class BotMain {
         val timer = new Timer(false)
         val task = new TimerTask {
             override def run(): Unit = {
-                client
-                    .getTextChannelById("711127633810817026")
-                    .get()
-                    .sendMessage("test")
+                val channel = client.getTextChannelById("690909527461199922")
+                if (channel.isPresent) {
+                    SendNews.command(channel.get())
+                }
             }
         }
         timer.schedule(task, 0, 1000 * 3600)
