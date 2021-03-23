@@ -14,7 +14,7 @@ import scala.util.{Failure, Success}
 object DataBase {
     def connectDB(): MongoClient = {
         val DB = ConfigFactory.load()
-            .getString("newsPonyo/DB")
+            .getString("DB")
         MongoClient(DB)
     }
 }
