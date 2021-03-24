@@ -20,6 +20,10 @@ object DeleteNews extends Command {
         Right(coll.deleteOne(equal("_id", new ObjectId(args
             .apply(1))
         ))
-            .subscribe(_ -> client.close()))
+            .subscribe(_ -> {
+                client.close()
+                event.getChannel
+                    .sendMessage("Success delete news")
+            }))
     }
 }
