@@ -18,7 +18,7 @@ object SendNews extends Event {
 
         coll.estimatedDocumentCount()
             .subscribe(x => {
-                Query.newsQuety(client, coll, x
+                Query.newsQuery(client, coll, x
                     .toInt, channel)
                 println(x
                     .toInt)

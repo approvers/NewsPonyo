@@ -10,7 +10,7 @@ import scala.concurrent.duration.Duration
 import scala.util.{Failure, Success}
 
 object Query {
-    def newsQuety(client: MongoClient, coll: MongoCollection[Document], count: Int, channel: TextChannel): Unit = {
+    def newsQuery(client: MongoClient, coll: MongoCollection[Document], count: Int, channel: TextChannel): Unit = {
         val query = coll.find()
             .skip((math
                 .random() * 1000)
