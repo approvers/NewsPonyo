@@ -34,7 +34,8 @@ class BotMain {
         val task = new TimerTask {
             override def run(): Unit = {
                 val channel = client.getTextChannelById("690909527461199922")
-                if (channel.isPresent) {
+                if (channel
+                    .isPresent) {
                     SendNews.command(channel.get())
                 }
             }

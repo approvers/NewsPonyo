@@ -18,7 +18,7 @@ object SendNews extends Event {
 
         coll.estimatedDocumentCount()
             .subscribe(x => {
-                Query.newsQuety(client, coll, x
+                Query.newsQuery(client, coll, x
                     .toInt, channel)
                 println(x
                     .toInt)
@@ -36,11 +36,20 @@ object SendNews extends Event {
                 .get
                 .asString()
                 .getValue)
-            .setDescription(result
-                .get("name")
-                .get
-                .asString()
-                .getValue)
+            .setDescription(s"${
+                result
+                    .get("name")
+                    .get
+                    .asString()
+                    .getValue
+            } ${
+                result
+                    .get("_id")
+                    .get
+                    .asObjectId()
+                    .getValue
+                    .toString
+            }")
             .setColor(Color
                 .GREEN)
         channel
