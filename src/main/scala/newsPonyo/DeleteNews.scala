@@ -2,6 +2,7 @@ package newsPonyo
 
 import newsPonyo.DB.DataBase
 import org.javacord.api.event.message.MessageCreateEvent
+import org.mongodb.scala.bson.ObjectId
 import org.mongodb.scala.model.Filters.equal
 
 object DeleteNews extends Command {
@@ -16,9 +17,9 @@ object DeleteNews extends Command {
 
         val coll = database.getCollection("News")
 
-        Right(coll.deleteOne(equal("id", args
-            .apply(1)
-            .toInt))
+        Right(coll.deleteOne(equal("_id", new ObjectId(args
+            .apply(1))
+        ))
             .subscribe(_ -> client.close()))
     }
 }

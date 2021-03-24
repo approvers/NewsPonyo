@@ -38,18 +38,21 @@ object AddNews extends Command {
         val coll = database.getCollection("News")
 
 
-        Right(coll.estimatedDocumentCount().subscribe(count => {
-            val id = count.toInt + 1
+        Right(
             Insert
-                .addNews(coll, name, title, id).onComplete{
-                case Success(_) =>
-                    client.close()
-                    event.getChannel
-                    .sendMessage(s"Success add new news \n This news id is $id")
-                case Failure(exception) =>
-                    return Left(exception.toString)
-            }
-        }))
+                .addNews(coll, name, title)
+                .onComplete {
+                    case Success(result) =>
+                        client.close()
+                        event.getChannel
+                            .sendMessage(s"Success add new news \n This news id is ${
+                                result.getInsertedId.asObjectId().getValue.toString
+                            }")
+                    case Failure(exception) =>
+                        return Left(exception
+                            .toString)
+                }
+        )
 
     }
 }

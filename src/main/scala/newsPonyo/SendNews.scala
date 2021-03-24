@@ -42,12 +42,13 @@ object SendNews extends Event {
                     .get
                     .asString()
                     .getValue
-            } #${
+            } ${
                 result
-                    .get("id")
+                    .get("_id")
                     .get
-                    .asString()
+                    .asObjectId()
                     .getValue
+                    .toString
             }")
             .setColor(Color
                 .GREEN)
