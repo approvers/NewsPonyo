@@ -36,11 +36,19 @@ object SendNews extends Event {
                 .get
                 .asString()
                 .getValue)
-            .setDescription(result
-                .get("name")
-                .get
-                .asString()
-                .getValue)
+            .setDescription(s"${
+                result
+                    .get("name")
+                    .get
+                    .asString()
+                    .getValue
+            } #${
+                result
+                    .get("id")
+                    .get
+                    .asString()
+                    .getValue
+            }")
             .setColor(Color
                 .GREEN)
         channel
