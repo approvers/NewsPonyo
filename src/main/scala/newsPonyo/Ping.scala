@@ -9,4 +9,6 @@ object Ping extends Command {
         Right(event.getChannel
             .sendMessage("pong"))
     }
+
+    override val help: String = ""
 }

@@ -55,4 +55,6 @@ object AddNews extends Command {
         )
 
     }
+
+    override val help: String = "p!add [title] [name]? :: 記事を書けます。\n使用例 [p!add hoge huga]"
 }

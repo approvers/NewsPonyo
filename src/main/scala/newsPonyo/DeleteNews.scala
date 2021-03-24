@@ -26,4 +26,6 @@ object DeleteNews extends Command {
                     .sendMessage("Success delete news")
             }))
     }
+
+    override val help: String = "p!delete [ID] :: 記事を削除できます。\n使用例 [p!delete 605b5a305ca96d318892173ef]"
 }
