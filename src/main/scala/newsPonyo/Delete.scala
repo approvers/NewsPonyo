@@ -1,0 +1,5 @@
+package newsPonyo
+
+object Delete {
+
+}
