@@ -3,7 +3,7 @@ package newsPonyo
 import com.typesafe.config.ConfigFactory
 import org.javacord.api.{DiscordApi, DiscordApiBuilder}
 
-import java.util.{Timer, TimerTask}
+import java.util.{Calendar, Date, Timer, TimerTask}
 
 object Main extends App {
     val botMain = new BotMain
@@ -33,10 +33,15 @@ class BotMain {
         val timer = new Timer(false)
         val task = new TimerTask {
             override def run(): Unit = {
-                val channel = client.getTextChannelById("690909527461199922")
-                if (channel
-                    .isPresent) {
-                    SendNews.command(channel.get())
+                ("%<tH" format new Date)
+                    .toInt match {
+                    case 0 | 1 | 2 | 3 | 4 | 6 | 10 | 14 | 18 | 20 | 21 | 22 | 23 => {
+                        val channel = client.getTextChannelById("690909527461199922")
+                        if (channel
+                            .isPresent) {
+                            SendNews.command(channel.get())
+                        }
+                    }
                 }
             }
         }
