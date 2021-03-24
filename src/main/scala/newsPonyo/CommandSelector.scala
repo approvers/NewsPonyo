@@ -12,6 +12,8 @@ object CommandSelector {
             case SendNews
                 .commandName => SendNews.command(event
                 .getChannel)
+            case DeleteNews
+                .commandName => DeleteNews.command(event)
             case _ => Right({})
         }
     }

@@ -1,5 +1,0 @@
-package newsPonyo
-
-object Delete {
-
-}
