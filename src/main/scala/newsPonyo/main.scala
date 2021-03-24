@@ -3,7 +3,7 @@ package newsPonyo
 import com.typesafe.config.ConfigFactory
 import org.javacord.api.{DiscordApi, DiscordApiBuilder}
 
-import java.util.{Calendar, Date, Timer, TimerTask}
+import java.util.{Date, Timer, TimerTask}
 
 object Main extends App {
     val botMain = new BotMain
