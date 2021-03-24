@@ -45,7 +45,7 @@ object AddNews extends Command {
                     case Success(result) =>
                         client.close()
                         event.getChannel
-                            .sendMessage(s"Success add new news \n This news id is ${
+                            .sendMessage(s"Success add new news \nThis news id is ${
                                 result.getInsertedId.asObjectId().getValue.toString
                             }")
                     case Failure(exception) =>
