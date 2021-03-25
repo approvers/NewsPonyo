@@ -1,10 +1,6 @@
 name: style
 on:
   pull_request:
-  push:
-  release:
-    types:
-      - edited
 jobs:
   style:
     runs-on: ubuntu-latest
