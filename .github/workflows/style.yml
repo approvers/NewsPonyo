@@ -11,7 +11,7 @@ jobs:
       - name: Setup
         uses: olafurpg/setup-scala@v10
         with:
-          java-version: "adopt@1.${{ matrix.java }}"
+          java-version: 11
       - name: style
         run: sbt scalastyle
 
