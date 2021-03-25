@@ -1,3 +1,12 @@
- - name: Style
-        run: sbt scalastyle
-        
+name: style
+on:
+  pull_request:
+  push:
+jobs:
+  style:
+    runs-on: ubuntu-latest
+    steps:
+      - name: style
+        run: sbt style
+
+
