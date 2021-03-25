@@ -10,29 +10,31 @@ import scala.concurrent.duration.Duration
 import scala.util.{Failure, Success}
 
 object Query {
-    def newsQuery(client: MongoClient, coll: MongoCollection[Document], count: Int, channel: TextChannel): Unit = {
-        val query = coll.find()
-            .skip((math
-                .random() * 1000)
-                .toInt % count)
-            .limit(1)
-            .first()
-            .toFuture()
-        Await.ready(query, Duration
-            .Inf)
-            .onComplete {
+  def newsQuery(
+      client: MongoClient,
+      coll: MongoCollection[Document],
+      count: Int,
+      channel: TextChannel
+  ): Unit = {
+    val query = coll
+      .find()
+      .skip(
+          (math
+            .random() * 1000).toInt % count
+      )
+      .limit(1)
+      .first()
+      .toFuture()
+    Await.ready(query, Duration.Inf).onComplete {
 
-                case Success(result) =>
-                    coll.drop()
-                    client.close()
-                    SendNews.send(result, channel)
+      case Success(result) =>
+        coll.drop()
+        client.close()
+        SendNews.send(result, channel)
 
-                case Failure(e) =>
-                    println(s"error: ${
-                        e
-                            .toString
-                    }")
-                    client.close()
-            }
+      case Failure(e) =>
+        println(s"error: ${e.toString}")
+        client.close()
     }
+  }
 }

@@ -7,58 +7,49 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
 
 object AddNews extends Command {
-    override val commandName: String = "add"
+  override val commandName: String = "add"
 
-    override def command(event: MessageCreateEvent): Either[String, Unit] = {
-        val args = event.getMessage
-            .getContent
-            .split(" ")
+  override def command(event: MessageCreateEvent): Either[String, Unit] = {
+    val args = event.getMessage.getContent
+      .split(" ")
 
-        args
-            .length match {
-            case 1 => Left("引数不足")
-            case 2 | 3 =>
-                val title = args.apply(1)
+    args.length match {
+      case 1 => Left("引数不足")
+      case 2 | 3 =>
+        val title = args.apply(1)
 
-                val name = args
-                    .length match {
-                    case 3 => args.apply(2)
-                    case _ => event
-                        .getMessage
-                        .getAuthor
-                        .getDisplayName
-                }
-
-                val client = DataBase.connectDB()
-                val database = client.getDatabase("News")
-
-                val coll = database.getCollection("News")
-
-
-                Right(
-                    Insert
-                        .addNews(coll, name, title)
-                        .onComplete {
-                            case Success(result) =>
-                                client.close()
-                                event.getChannel
-                                    .sendMessage(s"Success add new news \nThis news id is ${
-                                        result
-                                            .getInsertedId
-                                            .asObjectId()
-                                            .getValue
-                                            .toString
-                                    }")
-                            case Failure(exception) =>
-                                Left(exception
-                                    .toString)
-                        }
-                )
-            case _ => Left("引数過度")
+        val name = args.length match {
+          case 3 => args.apply(2)
+          case _ => event.getMessage.getAuthor.getDisplayName
         }
 
+        val client = DataBase.connectDB()
+        val database = client.getDatabase("News")
 
+        val coll = database.getCollection("News")
+
+        Right(
+            Insert
+              .addNews(coll, name, title)
+              .onComplete {
+                case Success(result) =>
+                  client.close()
+                  event.getChannel
+                    .sendMessage(
+                        s"Success add new news \nThis news id is ${result.getInsertedId
+                          .asObjectId()
+                          .getValue
+                          .toString}"
+                    )
+                case Failure(exception) =>
+                  Left(exception.toString)
+              }
+        )
+      case _ => Left("引数過度")
     }
 
-    override val help: String = "p!add [title] [name]? :: 記事を書けます。\n使用例 [p!add hoge huga]"
+  }
+
+  override val help: String =
+    "p!add [title] [name]? :: 記事を書けます。\n使用例 [p!add hoge huga]"
 }
