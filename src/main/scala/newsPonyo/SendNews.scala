@@ -27,7 +27,10 @@ object SendNews extends Event {
     )
   }
 
-  def send(result: Document, channel: TextChannel): Unit = {
+  def send(
+      result: Document,
+      channel: TextChannel
+    ): Unit = {
     val message = new EmbedBuilder()
       .setAuthor("時刊 ぽにょニュース")
       .setTitle(

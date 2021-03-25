@@ -10,12 +10,13 @@ import scala.concurrent.duration.Duration
 import scala.util.{Failure, Success}
 
 object Query {
+
   def newsQuery(
       client: MongoClient,
       coll: MongoCollection[Document],
       count: Int,
       channel: TextChannel
-  ): Unit = {
+    ): Unit = {
     val query = coll
       .find()
       .skip(
