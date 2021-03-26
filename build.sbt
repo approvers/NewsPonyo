@@ -60,6 +60,6 @@ libraryDependencies ++= Seq(
     "org.mongodb" % "mongodb-driver-core" % "3.12.0",
     "org.mongodb" % "mongodb-driver-async" % "3.12.0",
     "org.scalatest" %% "scalatest" % "3.0.8",
-    "org.scalatest" %% "scalatest" % "3.0.8" % Test
+    "org.scalatest" %% "scalatest" % "3.0.8" % Test,
     "com.typesafe" % "config" % "1.4.1"
 )
