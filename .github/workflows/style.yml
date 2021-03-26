@@ -1,7 +1,6 @@
 name: style
 on:
   pull_request:
-  push:
 jobs:
   style:
     runs-on: ubuntu-latest

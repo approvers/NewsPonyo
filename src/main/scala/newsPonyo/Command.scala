@@ -3,9 +3,9 @@ package newsPonyo
 import org.javacord.api.event.message.MessageCreateEvent
 
 trait Command {
-    val commandName: String
+  val commandName: String
 
-    def command(event: MessageCreateEvent): Either[String, Unit]
+  def command(event: MessageCreateEvent): Either[String, Unit]
 
-    val help: String
+  val help: String
 }
