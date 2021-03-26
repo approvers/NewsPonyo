@@ -9,45 +9,51 @@ import scala.util.{Failure, Success}
 object AddNews extends Command {
   override val commandName: String = "add"
 
+  def variation(string: Array[String]): Either[String, Unit] = {
+    string.length match {
+      case 1     => Left("引数不足")
+      case 2 | 3 => Right({})
+      case _     => Left("引数過度")
+    }
+  }
+
+  def addNews(
+      event: MessageCreateEvent,
+      args: Array[String]
+    ): Either[String, Unit] = {
+    val title = args.apply(1)
+
+    val name = args.length match {
+      case 3 => args.apply(2)
+      case _ => event.getMessage.getAuthor.getDisplayName
+    }
+
+    val client = DataBase.connectDB()
+    val database = client.getDatabase("News")
+
+    val coll = database.getCollection("News")
+
+    Right(
+        Insert
+          .addNews(coll, name, title)
+          .onComplete {
+            case Success(result) =>
+              client.close()
+              event.getChannel
+                .sendMessage(s"Success add new news \nThis news id is ${result.getInsertedId
+                  .asObjectId()
+                  .getValue
+                  .toString}")
+            case Failure(exception) =>
+              Left(exception.toString)
+          }
+    )
+  }
+
   override def command(event: MessageCreateEvent): Either[String, Unit] = {
     val args = event.getMessage.getContent
       .split(" ")
-
-    args.length match {
-      case 1 => Left("引数不足")
-      case 2 | 3 =>
-        val title = args.apply(1)
-
-        val name = args.length match {
-          case 3 => args.apply(2)
-          case _ => event.getMessage.getAuthor.getDisplayName
-        }
-
-        val client = DataBase.connectDB()
-        val database = client.getDatabase("News")
-
-        val coll = database.getCollection("News")
-
-        Right(
-            Insert
-              .addNews(coll, name, title)
-              .onComplete {
-                case Success(result) =>
-                  client.close()
-                  event.getChannel
-                    .sendMessage(
-                        s"Success add new news \nThis news id is ${result.getInsertedId
-                          .asObjectId()
-                          .getValue
-                          .toString}"
-                    )
-                case Failure(exception) =>
-                  Left(exception.toString)
-              }
-        )
-      case _ => Left("引数過度")
-    }
-
+    if (variation(args).isLeft) Right(addNews(event, args)) else variation(args)
   }
 
   override val help: String =
