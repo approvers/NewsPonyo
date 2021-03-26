@@ -9,6 +9,7 @@ import scala.util.{Failure, Success}
 object AddNews extends Command {
   override val commandName: String = "add"
 
+
   def variation(string: Array[String]): Either[String, Unit] = {
     string.length match {
       case 1     => Left("引数不足")
