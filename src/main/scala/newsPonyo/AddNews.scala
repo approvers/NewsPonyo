@@ -53,7 +53,7 @@ object AddNews extends Command {
   override def command(event: MessageCreateEvent): Either[String, Unit] = {
     val args = event.getMessage.getContent
       .split(" ")
-    if (variation(args).isLeft) Right(addNews(event, args)) else variation(args)
+    if (variation(args).isLeft) variation(args) else Right(addNews(event, args))
   }
 
   override val help: String =
