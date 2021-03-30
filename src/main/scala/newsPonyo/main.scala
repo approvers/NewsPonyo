@@ -31,6 +31,14 @@ class BotMain {
       }
     })
 
+    client.addServerVoiceChannelMemberJoinListener(event => {
+      VcDiff.join(event, client)
+    })
+
+    client.addServerVoiceChannelMemberLeaveListener(event => {
+      VcDiff.leave(event, client)
+    })
+
     new PublishTask(client)
 
   }
