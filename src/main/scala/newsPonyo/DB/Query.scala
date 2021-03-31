@@ -31,7 +31,8 @@ object Query {
       case Success(result) =>
         coll.drop()
         client.close()
-        SendNews.send(result, channel)
+        SendNews.sendDiscord(result, channel)
+        SendNews.sendMastodon(result)
 
       case Failure(e) =>
         println(s"error: ${e.toString}")

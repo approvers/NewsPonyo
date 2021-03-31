@@ -29,7 +29,7 @@ object SendNews extends Event {
     )
   }
 
-  def send(
+  def sendDiscord(
       result: Document,
       channel: TextChannel
     ): Unit = {
@@ -55,15 +55,22 @@ object SendNews extends Event {
       .setColor(Color.GREEN)
     channel
       .sendMessage(message)
+  }
+
+  def sendMastodon(result: Document): Unit = {
+    val TOKEN = ConfigFactory
+      .load()
+      .getString("MASTODON")
+
+    val news = s"【時刊ぽにょニュース】\n${result.get("title").get.asString().getValue}"
+
     Http("https://mastodon.approvers.dev/api/v1/statuses")
       .postForm(
-          Seq("status" -> result.get("title").get.asString().getValue)
+          Seq("status" -> news)
       )
       .header(
           "Authorization",
-          ConfigFactory
-            .load()
-            .getString("MASTODON")
+          TOKEN
       )
       .asString
   }
