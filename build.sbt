@@ -49,6 +49,7 @@ resolvers ++= Seq(
     "jitpack" at "https://jitpack.io",
     Resolver.jcenterRepo
 )
+
 libraryDependencies ++= Seq(
     "org.javacord" % "javacord" % "3.1.2",
     "org.mongodb.scala" %% "mongo-scala-driver" % "4.2.2",
@@ -61,5 +62,9 @@ libraryDependencies ++= Seq(
     "org.mongodb" % "mongodb-driver-async" % "3.12.0",
     "org.scalatest" %% "scalatest" % "3.0.8",
     "org.scalatest" %% "scalatest" % "3.0.8" % Test,
-    "com.typesafe" % "config" % "1.4.1"
+    "com.typesafe" % "config" % "1.4.1",
+    "org.scalaj" %% "scalaj-http" % "2.4.2",
+    "com.typesafe.akka" %% "akka-actor" % "2.5.23",
+    "com.typesafe.akka" %% "akka-http" % "10.2.4",
+    "com.typesafe.akka" %% "akka-stream" % "2.5.23"
 )
