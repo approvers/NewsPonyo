@@ -1,9 +1,11 @@
 package newsPonyo
 
-import DB.{DataBase, Query}
+import com.typesafe.config.ConfigFactory
+import newsPonyo.DB.{DataBase, Query}
 import org.javacord.api.entity.channel.TextChannel
 import org.javacord.api.entity.message.embed.EmbedBuilder
 import org.mongodb.scala.{Document, MongoDatabase}
+import scalaj.http.Http
 
 import java.awt.Color
 
@@ -27,7 +29,7 @@ object SendNews extends Event {
     )
   }
 
-  def send(
+  def sendDiscord(
       result: Document,
       channel: TextChannel
     ): Unit = {
@@ -53,5 +55,23 @@ object SendNews extends Event {
       .setColor(Color.GREEN)
     channel
       .sendMessage(message)
+  }
+
+  def sendMastodon(result: Document): Unit = {
+    val TOKEN = ConfigFactory
+      .load()
+      .getString("MASTODON")
+
+    val news = s"【時刊ぽにょニュース】\n${result.get("title").get.asString().getValue}"
+
+    Http("https://mastodon.approvers.dev/api/v1/statuses")
+      .postForm(
+          Seq("status" -> news)
+      )
+      .header(
+          "Authorization",
+          TOKEN
+      )
+      .asString
   }
 }
