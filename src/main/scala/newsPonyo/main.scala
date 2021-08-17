@@ -28,6 +28,7 @@ class BotMain {
             event
         ) match {
           case Left(value) => value.channel.sendMessage(value.message)
+          case Right(_)    =>
         }
       }
     })
