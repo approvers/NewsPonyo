@@ -5,7 +5,6 @@ import org.javacord.api.event.message.MessageCreateEvent
 import org.mongodb.scala.bson.ObjectId
 import org.mongodb.scala.model.Filters.equal
 import org.javacord.api.entity.channel.TextChannel
-import newsPonyo.Faild._
 
 object DeleteNews extends Command {
   override val commandName: String = "delete"

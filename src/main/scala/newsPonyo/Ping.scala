@@ -1,7 +1,6 @@
 package newsPonyo
 
 import org.javacord.api.event.message.MessageCreateEvent
-import newsPonyo.Faild._
 
 object Ping extends Command {
   override val commandName: String = "ping"

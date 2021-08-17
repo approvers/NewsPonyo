@@ -6,7 +6,6 @@ import org.javacord.api.event.message.MessageCreateEvent
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
 import org.javacord.api.entity.channel.TextChannel
-import newsPonyo.Faild._
 
 object AddNews extends Command {
   override val commandName: String = "add"

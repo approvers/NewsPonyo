@@ -1,7 +1,6 @@
 package newsPonyo
 
 import org.javacord.api.event.message.MessageCreateEvent
-import newsPonyo.Faild._
 
 trait Command {
   val commandName: String
