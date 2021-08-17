@@ -5,15 +5,19 @@ import org.javacord.api.event.message.MessageCreateEvent
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
+import org.javacord.api.entity.channel.TextChannel
 
 object AddNews extends Command {
   override val commandName: String = "add"
 
-  def variation(string: Array[String]): Either[String, Unit] = {
+  def variation(
+      channel: TextChannel,
+      string: Array[String]
+    ): Either[Faild, Unit] = {
     string.length match {
-      case 1     => Left("引数不足")
+      case 1     => Left(Faild(channel, "引数不足"))
       case 2 | 3 => Right({})
-      case _     => Left("引数過度")
+      case _     => Left(Faild(channel, "引数過度"))
     }
   }
 
@@ -50,10 +54,12 @@ object AddNews extends Command {
     )
   }
 
-  override def command(event: MessageCreateEvent): Either[String, Unit] = {
+  override def command(event: MessageCreateEvent): Either[Faild, Unit] = {
     val args = event.getMessage.getContent
       .split(" ")
-    if (variation(args).isLeft) variation(args) else Right(addNews(event, args))
+    if (variation(event.getChannel, args).isLeft)
+      variation(event.getChannel, args)
+    else Right(addNews(event, args))
   }
 
   override val help: String =

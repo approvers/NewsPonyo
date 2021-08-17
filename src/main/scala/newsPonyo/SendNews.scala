@@ -12,7 +12,17 @@ import java.awt.Color
 object SendNews extends Event {
   override val commandName: String = "send"
 
-  override def command(channel: TextChannel): Either[String, Unit] = {
+  def variation(
+      channel: TextChannel,
+      string: Array[String]
+    ): Either[Faild, Unit] = {
+    string.length match {
+      case 1 => Right({})
+      case _ => Left(Faild(channel, "引数過度"))
+    }
+  }
+
+  override def command(channel: TextChannel): Either[Faild, Unit] = {
     val client = DataBase.connectDB()
     val database: MongoDatabase = client.getDatabase("News")
 
