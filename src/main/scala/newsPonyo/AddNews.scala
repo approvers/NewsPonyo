@@ -15,9 +15,15 @@ object AddNews extends Command {
       string: Array[String]
     ): Either[Faild, Unit] = {
     string.length match {
-      case 1     => Left(Faild(channel, "引数不足"))
+      case 1 =>
+        Left(
+            Faild(channel, "引数が少ないです。タイトルも入力してください")
+        )
       case 2 | 3 => Right({})
-      case _     => Left(Faild(channel, "引数過度"))
+      case _ =>
+        Left(
+            Faild(channel, "引数が多いです。余計なスペースなどがないか確認してください\n※タイトルには半角スペースが使えません")
+        )
     }
   }
 
