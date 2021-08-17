@@ -25,7 +25,7 @@ object AddNews extends Command {
   def addNews(
       event: MessageCreateEvent,
       args: Array[String]
-    ): Either[String, Unit] = {
+    ): Either[Faild, Unit] = {
     val title = args.apply(1)
 
     val name = args.length match {
@@ -58,9 +58,10 @@ object AddNews extends Command {
   override def command(event: MessageCreateEvent): Either[Faild, Unit] = {
     val args = event.getMessage.getContent
       .split(" ")
-    if (variation(event.getChannel, args).isLeft)
-      variation(event.getChannel, args)
-    else Right(addNews(event, args))
+    variation(event.getChannel, args) match {
+      case Right(_)    => addNews(event, args)
+      case Left(faild) => Left(faild)
+    }
   }
 
   override val help: String =
