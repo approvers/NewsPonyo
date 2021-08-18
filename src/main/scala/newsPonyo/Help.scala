@@ -5,7 +5,7 @@ import org.javacord.api.event.message.MessageCreateEvent
 object Help extends Command {
   override val commandName: String = "help"
 
-  override def command(event: MessageCreateEvent): Either[String, Unit] = {
+  override def command(event: MessageCreateEvent): Either[Faild, Unit] = {
     val helpWord = s"```asciidoc\n" +
       Help.help + "\n" +
       AddNews.help + "\n" +
