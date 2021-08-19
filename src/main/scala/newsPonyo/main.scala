@@ -26,8 +26,10 @@ class BotMain {
             event.getMessageContent
               .drop(2),
             event
-        ).left
-          .foreach(println)
+        ) match {
+          case Left(value) => value.channel.sendMessage(value.message)
+          case Right(_)    =>
+        }
       }
     })
 
