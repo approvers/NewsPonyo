@@ -14,8 +14,8 @@ object DeleteNews extends Command {
       string: Array[String]
     ): Either[Faild, Unit] = {
     string.length match {
-      case 0 => Left(Faild(channel, "引数が少ないです"))
-      case 1 => Right({})
+      case 1 => Left(Faild(channel, "引数が少ないです"))
+      case 2 => Right({})
       case _ => Left(Faild(channel, "引数が多いです"))
     }
   }
