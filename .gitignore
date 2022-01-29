@@ -30,3 +30,4 @@ project/plugins/project/
 .cache
 .lib/
 src/main/resources/application.conf
+.sbt/

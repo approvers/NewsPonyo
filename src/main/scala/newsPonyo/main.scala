@@ -2,6 +2,7 @@ package newsPonyo
 
 import com.typesafe.config.ConfigFactory
 import org.javacord.api.{DiscordApi, DiscordApiBuilder}
+import scala.util.Random
 
 object Main extends App {
   val botMain = new BotMain
@@ -30,6 +31,20 @@ class BotMain {
           case Left(value) => value.channel.sendMessage(value.message)
           case Right(_)    =>
         }
+      }
+    })
+
+    val r = new Random
+
+    client.addServerVoiceChannelMemberJoinListener(event => {
+      if (r.nextInt() % 3 == 0) {
+        VcDiff.join(event, client)
+      }
+    })
+
+    client.addServerVoiceChannelMemberLeaveListener(event => {
+      if (r.nextInt() % 3 == 0) {
+        VcDiff.leave(event, client)
       }
     })
 

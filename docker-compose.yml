@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+  api:
+    image: hseeberger/scala-sbt:graalvm-ce-21.1.0-java11_1.5.2_2.13.5
+    command: sbt run
+    volumes: [".:/work", ".:/root"]
+    restart: always
+    network_mode: "bridge"
+
