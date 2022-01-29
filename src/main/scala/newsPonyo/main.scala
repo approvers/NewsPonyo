@@ -37,13 +37,13 @@ class BotMain {
     val r = new Random
 
     client.addServerVoiceChannelMemberJoinListener(event => {
-      if (r.nextInt() % 3 == 0){
+      if (r.nextInt() % 3 == 0) {
         VcDiff.join(event, client)
       }
     })
 
     client.addServerVoiceChannelMemberLeaveListener(event => {
-      if (r.nextInt() % 3 == 0){
+      if (r.nextInt() % 3 == 0) {
         VcDiff.leave(event, client)
       }
     })
